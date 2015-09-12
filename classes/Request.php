@@ -52,7 +52,11 @@ class Request
     {
         $uri = $_SERVER['REQUEST_URI'];
         $components = explode('?', $uri);
-        return filter_var($components[0], FILTER_SANITIZE_STRIPPED);
+        $path = $components[0];
+        if ($path != '/') {
+            $path = trim($path, '/');
+        }
+        return filter_var($path, FILTER_SANITIZE_STRIPPED);
     }
 
     private function getQueryParameters()

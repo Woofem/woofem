@@ -41,7 +41,7 @@ class Bootstrap {
             'request' => $this->request
         );
         $response = new Response($params);
-        $response->render();
+        $response->deliverResponse();
 
     }
 
