@@ -16,6 +16,11 @@ class Config {
 
     public function getConfig()
     {
-        return json_decode(file_get_contents($this->config_file));
+        if (file_exists($this->config_file)) {
+            return json_decode(file_get_contents($this->config_file));
+        }
+        else {
+            throw new \Exception('config file does not exist');
+        }
     }
 }

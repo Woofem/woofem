@@ -42,7 +42,6 @@ class Bootstrap {
         );
         $response = new Response($params);
         $response->deliverResponse();
-
     }
 
 }

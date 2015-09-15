@@ -1,8 +1,12 @@
 <?php
 
-foreach (glob(__DIR__ . '/controllers/*.php') as $filename) {
-    include_once($filename);
-}
-foreach (glob(__DIR__ . '/classes/*.php') as $filename) {
-    include_once($filename);
+$directories = array(
+    'controllers',
+    'classes'
+);
+
+foreach ($directories as $directory) {
+    foreach (glob(__DIR__ . '/' . $directory . '/*.php') as $filename) {
+        include_once($filename);
+    }
 }

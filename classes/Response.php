@@ -14,11 +14,10 @@ class Response {
 
     public function deliverResponse()
     {
-        var_dump($this->routes);
-        var_dump($this->request);
         if ($this->verifyPath() && $this->verifyMethod()) {
-            $this->setHttpHeader(200);
-
+            $routeCallback = $this->routes->{$this->request->path}->{$this->request->method};
+            $body = call_user_func($routeCallback);
+            $this->setResponseBody($body);
         }
     }
 
@@ -34,7 +33,7 @@ class Response {
 
     private function setResponseBody($content)
     {
-
+        echo $content;
     }
 
     private function verifyMethod()
