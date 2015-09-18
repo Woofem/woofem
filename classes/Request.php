@@ -59,13 +59,20 @@ class Request
         return filter_var($path, FILTER_SANITIZE_STRIPPED);
     }
 
+    private function getPost()
+    {
+        if (!empty($_POST)) {
+            return Filters::filterKeyValuePairs($_POST);
+        }
+        return FALSE;
+    }
+
     private function getQueryParameters()
     {
-        $filtered = new \stdClass();
-        foreach($_GET as $key => $value) {
-            $filtered->{filter_var($key, FILTER_SANITIZE_STRIPPED)} = filter_var($value, FILTER_SANITIZE_STRIPPED);
+        if (!empty($_GET)) {
+            return Filters::filterKeyValuePairs($_GET);
         }
-        return $filtered;
+        return FALSE;
     }
 
     public function getRequestObject()
@@ -74,6 +81,7 @@ class Request
         $out->accepts = $this->getAccepts();
         $out->method = $this->getMethod();
         $out->parameters = $this->getQueryParameters();
+        $out->post = $this->getPost();
         $out->path = $this->getPath();
         $out->time = $this->getTime();
         $out->user_agent = $this->getUserAgent();
