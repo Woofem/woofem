@@ -31,8 +31,6 @@ class Template {
      *   Template name.
      * @param $data object
      *   Data to pass to template for rendering.
-     * @return string
-     *   Rendered HTML.
      */
     public function render($file, $data, $app) {
         require_once('../' . $this->template_directory . '/' . $file . '.html.php');

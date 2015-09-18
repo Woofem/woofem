@@ -3,7 +3,7 @@
 $app->registerRoute('/', 'GET', function($app) {
     $data = new stdClass();
     $data->foo = 'bar';
-    return $app->render('default', $data);
+    $app->render('default', $data);
 });
 
 $app->registerRoute('/', 'POST', function() {

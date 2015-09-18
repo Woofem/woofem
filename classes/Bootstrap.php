@@ -36,7 +36,7 @@ class Bootstrap {
 
     public function render($filename, $data) {
         $template = new Template($this->config);
-        echo $template->render($filename, $data, $this);
+        $template->render($filename, $data, $this);
     }
 
     public function run()
