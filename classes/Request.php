@@ -67,6 +67,17 @@ class Request
         return FALSE;
     }
 
+    private function getPut()
+    {
+        if ($this->getMethod() == "PUT") {
+            $vars = json_decode(file_get_contents("php://input"));
+            if ($vars) {
+                return Filters::filterKeyValuePairs($vars);
+            }
+        }
+        return FALSE;
+    }
+
     private function getQueryParameters()
     {
         if (!empty($_GET)) {
@@ -82,6 +93,7 @@ class Request
         $out->method = $this->getMethod();
         $out->parameters = $this->getQueryParameters();
         $out->post = $this->getPost();
+        $out->put = $this->getPut();
         $out->path = $this->getPath();
         $out->time = $this->getTime();
         $out->user_agent = $this->getUserAgent();

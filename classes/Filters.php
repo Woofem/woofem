@@ -1,4 +1,7 @@
 <?php
+/**
+ * @file Helper class for filters. Static methods because this class will not need to be extended.
+ */
 
 namespace Woofem;
 
@@ -25,7 +28,7 @@ class Filters {
 
     /**
      * Filter a string.
-     * 
+     *
      * @param $string
      *   String to filter.
      * @param string $filter_level
