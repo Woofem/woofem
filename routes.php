@@ -1,7 +1,9 @@
 <?php
 
-$app->registerRoute('/', 'GET', function() {
-    return 'GET Index';
+$app->registerRoute('/', 'GET', function($app) {
+    $data = new stdClass();
+    $data->foo = 'bar';
+    return $app->render('default', $data);
 });
 
 $app->registerRoute('/', 'POST', function() {

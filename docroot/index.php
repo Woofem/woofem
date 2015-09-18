@@ -9,7 +9,6 @@ try {
     require_once __DIR__ . '/../routes.php';
 
     $app->run();
-    var_dump($app->routes);
 }
 catch (Exception $e) {
     echo '<h1>Exception: ' . $e->getMessage() . '</h1>';

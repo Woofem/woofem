@@ -34,6 +34,11 @@ class Bootstrap {
         $this->routes->{$path}->{$method} = $callback;
     }
 
+    public function render($filename, $data) {
+        $template = new Template($this->config);
+        echo $template->render($filename, $data, $this);
+    }
+
     public function run()
     {
         $params = array(
@@ -41,7 +46,7 @@ class Bootstrap {
             'request' => $this->request
         );
         $response = new Response($params);
-        $response->deliverResponse();
+        $response->deliverResponse($this);
     }
 
 }

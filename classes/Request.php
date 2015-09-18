@@ -29,7 +29,7 @@ class Request
 
     public function __construct()
     {
-
+        $this->method = $this->getMethod();
     }
 
     private function getAccepts()
@@ -61,39 +61,38 @@ class Request
 
     private function getPost()
     {
-        if (!empty($_POST)) {
-            return Filters::filterKeyValuePairs($_POST);
-        }
-        return FALSE;
+        return Filters::filterKeyValuePairs($_POST);
+
     }
 
     private function getPut()
     {
-        if ($this->getMethod() == "PUT") {
-            $vars = json_decode(file_get_contents("php://input"));
-            if ($vars) {
-                return Filters::filterKeyValuePairs($vars);
-            }
+        $vars = json_decode(file_get_contents("php://input"));
+        if ($vars) {
+            return Filters::filterKeyValuePairs($vars);
         }
         return FALSE;
     }
 
     private function getQueryParameters()
     {
-        if (!empty($_GET)) {
-            return Filters::filterKeyValuePairs($_GET);
-        }
-        return FALSE;
+        return Filters::filterKeyValuePairs($_GET);
     }
 
     public function getRequestObject()
     {
         $out = new \stdClass();
         $out->accepts = $this->getAccepts();
-        $out->method = $this->getMethod();
-        $out->parameters = $this->getQueryParameters();
-        $out->post = $this->getPost();
-        $out->put = $this->getPut();
+        $out->method = $this->method;
+        if (!empty($_GET)) {
+            $out->parameters = $this->getQueryParameters();
+        }
+        if (!empty($_POST)) {
+            $out->post = $this->getPost();
+        }
+        if ($this->method == 'PUT') {
+            $out->put = $this->getPut();
+        }
         $out->path = $this->getPath();
         $out->time = $this->getTime();
         $out->user_agent = $this->getUserAgent();

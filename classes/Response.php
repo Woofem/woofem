@@ -12,11 +12,11 @@ class Response {
         $this->request = $params['request'];
     }
 
-    public function deliverResponse()
+    public function deliverResponse($app)
     {
         if ($this->verifyPath() && $this->verifyMethod()) {
             $routeCallback = $this->routes->{$this->request->path}->{$this->request->method};
-            $body = call_user_func($routeCallback);
+            $body = call_user_func($routeCallback, $app);
             $this->setResponseBody($body);
         }
     }
