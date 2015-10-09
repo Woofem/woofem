@@ -10,6 +10,12 @@ $app->registerRoute('/', 'POST', function() {
     return 'POST Index';
 });
 
+$app->registerRoute('pet', 'GET', function($app){
+    $pet = new \Woofem\PetController($app);
+    $data = $pet->getPet('1');
+    $app->render('default', $data);
+});
+
 /**
  * Example structure of how I see route callbacks working.
  */
