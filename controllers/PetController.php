@@ -25,6 +25,6 @@ class PetController extends BaseController {
             $id = $this->getIdFromPetName($id);
         }
         $result = $this->db->connection->query('SELECT * FROM pet')->fetchAll();
-        return $result[0];
+        return (object)$result[0];
     }
 }
