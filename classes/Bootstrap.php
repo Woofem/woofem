@@ -26,6 +26,24 @@ class Bootstrap {
         }
     }
 
+    /**
+     * Get part of url path by place in the path.
+     *   example: /pets/bob if supplied an index of 1 will return "bob"
+     * @param int $index Place in URL path
+     * @return string | FALSE
+     *   Returns string of place in URL or FALSE if index is not present.
+     */
+    public function getUrlPart($index)
+    {
+        $path_parts = explode('/', $this->request->path);
+        if (isset($path_parts[$index])) {
+            return $path_parts[$index];
+        }
+        else {
+            return FALSE;
+        }
+    }
+
     public function registerRoute($path, $method, $callback)
     {
         if (!isset($this->routes->{$path})) {
@@ -34,7 +52,8 @@ class Bootstrap {
         $this->routes->{$path}->{$method} = $callback;
     }
 
-    public function render($filename, $data) {
+    public function render($filename, $data)
+    {
         $template = new Template($this->config);
         $template->render($filename, $data, $this);
     }

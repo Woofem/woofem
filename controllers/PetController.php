@@ -8,10 +8,23 @@ class PetController extends BaseController {
         parent::__construct($app);
     }
 
-    public function getPet($id) {
-        echo $id;
-        var_dump($this);
+
+    public function getIdFromPetName($name)
+    {
+        $sql = 'SELECT pid FROM pet WHERE Name = :name';
+        $query = $this->db->connection->prepare($sql);
+        $query->execute(array(':name' => $name));
+
+        $result = $query->fetchAll();
+        return $result[0]['pid'];
+    }
+
+    public function getPet($id)
+    {
+        if (!is_numeric($id)) {
+            $id = $this->getIdFromPetName($id);
+        }
         $result = $this->db->connection->query('SELECT * FROM pet')->fetchAll();
-        return $result;
+        return $result[0];
     }
 }

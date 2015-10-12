@@ -15,6 +15,5 @@ class Database {
                 \PDO::ATTR_PERSISTENT => true
             )
         );
-        echo 'balls';
     }
 }

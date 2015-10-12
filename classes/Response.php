@@ -14,11 +14,18 @@ class Response {
 
     public function deliverResponse($app)
     {
-        if ($this->verifyPath() && $this->verifyMethod()) {
-            $routeCallback = $this->routes->{$this->request->path}->{$this->request->method};
-            $body = call_user_func($routeCallback, $app);
-            $this->setResponseBody($body);
+        if ($path = $this->verifyPath()) {
+            if ($this->verifyMethod($path)) {
+                $routeCallback = $this->routes->{$path}->{$this->request->method};
+                $body = call_user_func($routeCallback, $app);
+                $this->setResponseBody($body);
+            }
         }
+    }
+
+    public function get_path_parts($path)
+    {
+        return explode('/', $path);
     }
 
     public function render()
@@ -36,14 +43,18 @@ class Response {
         echo $content;
     }
 
-    private function verifyMethod()
+    private function verifyMethod($path)
     {
-        $path = $this->request->path;
         return property_exists($this->routes->{$path}, $this->request->method);
     }
 
     private function verifyPath()
     {
-        return property_exists($this->routes, $this->request->path);
+        foreach ($this->routes as $path => $method_and_such) {
+            if (fnmatch($path, $this->request->path)) {
+                return $path;
+            }
+        }
+        return FALSE;
     }
 }
