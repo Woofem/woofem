@@ -7,6 +7,7 @@
 3. Create a config.json file in the repository root <br>
 Here's an example:
     <code>
+    <pre>
       {
         "site": {
           "title": "Woofem.com",
@@ -24,10 +25,13 @@ Here's an example:
           "partials_directory": "templates/partials"
         }
       }
+    </pre>
     </code>
 4. Use PHP's local development server to serve from the docroot directory
     <code>
+    <pre>
       cd docroot
       php -S localhost:9000
+    </pre>
     </code>
 5. Visit localhost:9000 in your favorite web browser.
