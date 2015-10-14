@@ -26,6 +26,8 @@ Here's an example:
       }
     </code>
 4. Use PHP's local development server to serve from the docroot directory
-    cd docroot
-    php -S localhost:9000
+    <code>
+      cd docroot
+      php -S localhost:9000
+    </code>
 5. Visit localhost:9000 in your favorite web browser.
