@@ -27,6 +27,7 @@ Here's an example:
       }
     </pre>
     </code>
+    *Note: If you copy and paste this snippet there are some wonky characters that will produce an invalid JSON file.
 4. Use PHP's local development server to serve from the docroot directory
     <code>
     <pre>
