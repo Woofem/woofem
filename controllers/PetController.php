@@ -47,7 +47,7 @@ class PetController extends BaseController {
             if ($result) {
                 $out = $this->getPetObjectFromResult($result[0]);
             }
-            return Filters::filterKeyValuePairs($out);
+            return $this->filterData($out);
         }
         else {
             $this->app->send404Response();
