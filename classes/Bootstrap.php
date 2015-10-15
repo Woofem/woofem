@@ -68,4 +68,11 @@ class Bootstrap {
         $response->deliverResponse($this);
     }
 
+    public function send404Response()
+    {
+        $template = new Template($this->config);
+        header('HTTP/1.1 404 Not Found');
+        echo $template->render('404', null, $this);
+        exit;
+    }
 }

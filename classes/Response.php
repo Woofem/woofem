@@ -33,11 +33,6 @@ class Response {
 
     }
 
-    private function setHttpHeader($header = 200)
-    {
-
-    }
-
     private function setResponseBody($content)
     {
         echo $content;

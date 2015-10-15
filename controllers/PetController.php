@@ -4,9 +4,16 @@ namespace Woofem;
 
 class PetController extends BaseController {
 
+    /**
+     * @var object $app
+     * Bootstrap application object.
+     */
+    private $app;
+
     public function __construct($app)
     {
         parent::__construct($app);
+        $this->app = $app;
     }
 
 
@@ -30,16 +37,21 @@ class PetController extends BaseController {
             $id = $this->getIdFromPetName($id);
         }
 
-        $sql = 'SELECT * FROM pets WHERE PetId = :id';
-        $query = $this->db->connection->prepare($sql);
-        $query->execute(array(':id' => $id));
+        if ($id) {
+            $sql = 'SELECT * FROM pets WHERE PetId = :id';
+            $query = $this->db->connection->prepare($sql);
+            $query->execute(array(':id' => $id));
 
-        $result = $query->fetchAll();
+            $result = $query->fetchAll();
 
-        if ($result) {
-            $out = $this->getPetObjectFromResult($result[0]);
+            if ($result) {
+                $out = $this->getPetObjectFromResult($result[0]);
+            }
+            return $out;
         }
-        return $out;
+        else {
+            $this->app->send404Response();
+        }
     }
 
     private function getPetObjectFromResult($result)
