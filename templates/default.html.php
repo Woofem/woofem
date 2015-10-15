@@ -4,12 +4,12 @@
  */
 ?>
 
-<html>
+<?php include('partials/header.html.php'); ?>
 
-<body>
-    <h1><?php echo $app->config->site->title; ?></h1>
-    <h2><?php echo $app->config->site->subtitle; ?></h2>
-    <p><?php var_dump($data); ?></p>
-</body>
+    <div class="site-main">
+        <h1><?php echo $app->config->site->title; ?></h1>
+        <h2><?php echo $app->config->site->subtitle; ?></h2>
+        <p><?php var_dump($data); ?></p>
+    </div>
 
-</html>
+<?php include('partials/footer.html.php'); ?>
