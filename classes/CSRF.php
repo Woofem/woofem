@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @file Anti-cross-site request forgery token generation.
+ */
+
 namespace Woofem;
 
 class CSRF

@@ -20,10 +20,11 @@ $app->registerRoute('/', 'POST', function() {
  * Matches "/pets/*" on GET method
  */
 $app->registerRoute('pet/*', 'GET', function($app){
+    $data = new \stdClass();
     $petController = new \Woofem\PetController($app);
     $arg = $app->getUrlPart(1);
-    $pet = $petController->getPet($arg);
-    $app->render('default', $pet);
+    $data->pet = $petController->getPet($arg);
+    $app->render('default', $data);
 });
 
 /**

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @file Main application execution entry point.
+ */
+
 namespace Woofem;
 
 class Bootstrap {
@@ -44,6 +48,17 @@ class Bootstrap {
         }
     }
 
+    /**
+     * Register routes that will be valid endpoint in the application.
+     *
+     * @param $path string
+     *   URL path to register.
+     * @param $method string
+     *   HTTP method to register.
+     * @param $callback
+     *   Callback function that executes when path and method
+     *   match the requested path and method.
+     */
     public function registerRoute($path, $method, $callback)
     {
         if (!isset($this->routes->{$path})) {
@@ -52,12 +67,24 @@ class Bootstrap {
         $this->routes->{$path}->{$method} = $callback;
     }
 
+    /**
+     * Wrapper for $Template->render function.
+     * Here for scope reasons, kinda clumsy IMO.
+     *
+     * @param $filename string
+     *   Template filename sans .html.php
+     * @param $data object
+     *   Data to be passed to template file.
+     */
     public function render($filename, $data)
     {
         $template = new Template($this->config);
         $template->render($filename, $data, $this);
     }
 
+    /**
+     * Main execution flow of application.
+     */
     public function run()
     {
         $params = array(
@@ -68,4 +95,14 @@ class Bootstrap {
         $response->deliverResponse($this);
     }
 
+    /**
+     * End application execution and send a 404 response.
+     */
+    public function send404Response()
+    {
+        $template = new Template($this->config);
+        header('HTTP/1.1 404 Not Found');
+        echo $template->render('404', null, $this);
+        exit;
+    }
 }

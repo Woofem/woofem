@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @file Read config.json for use as application configuration.
+ */
+
 namespace Woofem;
 
 class Config {
@@ -9,11 +13,19 @@ class Config {
      */
     private $config_file;
 
+    /**
+     * Constructor function.
+     */
     public function __construct()
     {
         $this->config_file = __DIR__ . '/../config.json';
     }
 
+    /**
+     * Read configuration file and return as an object.
+     * @return object
+     * @throws \Exception
+     */
     public function getConfig()
     {
         if (file_exists($this->config_file)) {
